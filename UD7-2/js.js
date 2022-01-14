@@ -19,13 +19,20 @@ function mostrar(e) {
 
             let textoEmpleado = this.responseText;
             
+            let json = JSON.parse(textoEmpleado);
 
-            
+            json.employees.firstName;
 
-            console.log(textoEmpleado);
+            /* console.log(textoEmpleado); */
+            console.log(json);
+           console.log(json.employees[0].firstName);
            
+           for (const value of json.employees) {
+
+            div.innerHTML += "<p>Empleado: "+value.firstName+" "+value.lastName+"</p>";
+           }
+
             
-            div.innerHTML = textoEmpleado;
 
         }
         

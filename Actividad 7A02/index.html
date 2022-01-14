@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AJAX</title>
+</head>
+<body>
+  <div id="texto">
+  <h1>Coleccion de CDs</h1>
+  <button>Mostrar</button>
+
+  </div>
+
+  <div>
+
+  </div>
+  
+  <script>
+    document.querySelector("button").addEventListener("click", mostrar);
+    let div = document.querySelector("div");
+
+    //crear elementos del DOM
+    let tabla = document.createElement("table");
+    let tr = document.createElement("tr");
+    let td = document.createElement("td");
+
+    function mostrar() {
+      let xhr = new XMLHttpRequest();
+
+      xhr.onreadystatechange = function(){
+        console.log(xhr.readyState);
+        console.log(xhr.status);
+
+      if (this.readyState === 4 && this.status === 200 ) {
+        
+        let datosXML = this.responseXML;
+
+        
+        let cds = datosXML.getElementsByTagName("CD");
+
+        let arrayCd = Array.from(cds);
+        
+        console.log(datosXML);
+        console.log(cds[0]);
+        console.log(arrayCd[0]);
+        
+        arrayCd.forEach(element => {
+          let artista = element.getElementsByTagName("ARTIST");
+          let titulo = element.getElementsByTagName("TITLE");
+          añadirFila(artista,titulo);
+        });
+      
+      }
+    }
+
+      xhr.open( "GET", "cd_catalog.xml" , true);
+      
+      xhr.send();
+
+
+    }
+
+    function añadirFila(artista, titulo) {
+      console.log( artista[0].textContent);
+      console.log( titulo[0].textContent);
+      /* td.textContent= artista[0].textContent; */
+
+
+
+    }
+
+
+  </script>
+
+</body>
+</html>
